@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     Vector3 direction;
     Main _main;
     public static bool _sNextLevelOpen;
+    public static bool _sCamera;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -22,11 +23,8 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
-        transform.position += new Vector3(0, 0, 1 * _staticSpeed * Time.deltaTime);
-        if (Input.GetMouseButtonDown(0))
-        {
-            StairReduce();
-        }
+        updateCall();
+        
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -37,35 +35,53 @@ public class PlayerController : MonoBehaviour
                 Main._sAnim.Play("FinishDancePlayer"); //Son Dans
                 StartCoroutine(NextSec());
                 _sNextLevelOpen = true;
-                //2 Saniye sonra nextLevel paneli açýlsýn
+               
+                //2 Saniye sonra nextLevel paneli aï¿½ï¿½lsï¿½n
+                break;
+            case "FinishLine":
+                _sCamera = true;
                 break;
             case "Stair":
-                Main._sAnim.SetBool("Run-Stair", true);// Bana deðen merdivense týrman
+                Main._sAnim.SetBool("Run-Stair", true);// Bana deï¿½en merdivense tï¿½rman
                 break;
             case "PathStair":
-                stair = true; // Bana deðen Merdiven yapýnda kullanýlan þeyse artýk merdiven yapabilirsin
+                stair = true; // Bana deï¿½en Merdiven yapï¿½nda kullanï¿½lan ï¿½eyse artï¿½k merdiven yapabilirsin
                 Destroy(collision.gameObject);
                 bagSpawn();
                 bagStair++;
                 break;
             case "Ground":
-                Main._sAnim.SetBool("Run-Stair", false); //Bana deðen yerse Run animasyonuna geç
-                                                         //    Main._Sanim.SetBool("Stair-Fall", false); //Bana deðen yerse düþme animasyonunu kapat
+                Main._sAnim.SetBool("Run-Stair", false); //Bana deï¿½en yerse Run animasyonuna geï¿½
+                                                         //    Main._Sanim.SetBool("Stair-Fall", false); //Bana deï¿½en yerse dï¿½ï¿½me animasyonunu kapat
                 break;
-            case "Ýnfo":
-                Main._staticÝnfoPanel.SetActive(true);
+            case "info":
+                Main._staticÄ°nfoPanel.SetActive(true);
                 _staticSpeed = 0;
-                Main._sAnim.Play("ÝdlePlayerAnim");
+                Main._sAnim.Play("Ä°dlePlayerAnim");
                 break;
             case "enemy":
                 Main._sAnim.Play("BackFallDie");
                 _staticSpeed = 0;
-                //2 saniye sonra bitiþ paneli açýlsýn
+                //2 saniye sonra bitiï¿½ paneli aï¿½ï¿½lsï¿½n
                 StartCoroutine(DieSec());
                 break;
             default:
                 _sNextLevelOpen = false;
+                _sCamera = false;
                 break;
+        }
+    }
+    //------------------------------------------------------------------------
+    void startCall()
+    {
+        
+    }
+    void updateCall()
+    {
+        transform.position += new Vector3(0, 0, 1 * _staticSpeed * Time.deltaTime);
+        if (Input.GetMouseButtonDown(0))
+        {
+            StairReduce();
         }
     }
     public void bagSpawn()

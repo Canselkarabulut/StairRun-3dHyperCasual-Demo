@@ -127,6 +127,7 @@ public class Main : MonoBehaviour
         startPanel.SetActive(false);
         playerAnimator.Play("RunAnim");
         player.AddComponent<PlayerController>();
+        
     }
     public void InfoButton()
     {
@@ -144,6 +145,7 @@ public class Main : MonoBehaviour
     {
         PlayerController.stair = false;
         SceneManager.LoadScene(_nextLevel);
+        PlayerController._sCamera = false;
     }
     public void Points()
     {

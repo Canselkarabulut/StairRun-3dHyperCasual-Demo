@@ -5,12 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - finish
-  - "\u0130nfo"
   - Ground
   - Stair
   - PathStair
   - enemy
   - returnRight
+  - info
+  - FinishLine
   layers:
   - Default
   - TransparentFX
